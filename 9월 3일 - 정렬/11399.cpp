@@ -29,6 +29,6 @@ int main() {
     for(int i = 0; i < n; i++)
         cin >> atm[i];
     ascending(n);
-    cout << computeMin(n);
+    cout << computeMin(n); // ÃÖ¼Ú°ª °è»ê
     return 0;
 }

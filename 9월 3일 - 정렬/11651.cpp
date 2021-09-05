@@ -20,7 +20,7 @@ int main() {
     for(int i = 0; i < n; i++)
         cin >> xy[i].x >> xy[i].y;
 
-    sort(xy.begin(), xy.end(), cmp);
+    sort(xy.begin(), xy.end(), cmp); // Á¤·Ä
     for(int i = 0; i < n; i++)
         cout << xy[i].x << ' ' << xy[i].y << '\n';
     return 0;

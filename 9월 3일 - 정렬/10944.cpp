@@ -37,7 +37,7 @@ int main() {
 
     star.assign(4*n-3, vector<char>(4*n-3, ' '));
     for(int i = 0; i < n; i++)
-        makeStar(n, n-i, 2*i, 2*i);
+        makeStar(n, n-i, 2*i, 2*i); // 별 찍기
 
     for(int i = 0; i < 4*n-3; i++){ // 별 출력
         for(int j = 0; j < 4*n-3; j++)

@@ -39,7 +39,7 @@ int main() {
     for(int i = 0; i < n; i++)
         cin >> serial[i];
 
-    sort(serial.begin(), serial.end(), cmp);
+    sort(serial.begin(), serial.end(), cmp); // Á¤·Ä
     for(int i = 0; i < n; i++)
         cout << serial[i] << '\n';
     return 0;

@@ -39,8 +39,8 @@ int main() {
     for(int i = 0; i < n; i++)
         cin >> b[i];
 
-    ascending(n);
-    descending(n);
-    cout << computeMin(n);
+    ascending(n); // 오름차순 정렬
+    descending(n); // 내림차순 정렬
+    cout << computeMin(n); // 최솟값 계산
     return 0;
 }

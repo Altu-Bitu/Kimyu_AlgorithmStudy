@@ -31,7 +31,7 @@ int main() {
     for(int i = 0; i < n; i++)
         cin >> word[i];
 
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < n; i++) // 그룹 여부 확인
         result += isGroup(word[i]);
     cout << result;
     return 0;

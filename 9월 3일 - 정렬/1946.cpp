@@ -39,7 +39,7 @@ int main() {
             cin >> test[j].document >> test[j].interview;
 
         sort(test.begin(), test.end(), cmp); // 서류 점수 오름차순
-        findPass(i); // 합격자 찾기
+        findPass(i); // 합격자 찾기 
     }
     for(int i = 0; i < t; i++) // 테스트 케이스별 합격자 수 출력
         cout << passNum[i] << '\n';
