@@ -6,10 +6,14 @@ vector<int> atm;
 
 void ascending(int n) { // 오름차순 버블 정렬
     for(int i = 0; i < n; i++) {
+        bool flag = true;
         for(int j = 0; j < n-i-1; j++) {
-            if(atm[j] > atm[j+1])
+            if(atm[j] > atm[j+1]){
+                flag = false;
                 swap(atm[j], atm[j+1]);
+            }
         }
+        if(flag) break;
     }
 }
 

@@ -6,18 +6,26 @@ vector<int> a,b;
 
 void ascending(int n) { // 오름차순 버블 정렬
     for(int i = 0; i < n; i++) {
+        bool flag = true;
         for(int j = 0; j < n-1-i; j++) {
-            if(a[j] > a[j+1])
+            if(a[j] > a[j+1]) {
+                flag = false;
                 swap(a[j], a[j+1]);
+            }
         }
+        if(flag) break;
     }
 }
 
 void descending(int n) { // 내림차순 버블 정렬
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n-1-i; j++) {
-            if(b[j] < b[j+1])
+            bool flag = true;
+            if(b[j] < b[j+1]) {
+                flag = false;
                 swap(b[j], b[j+1]);
+            }
+            if(flag) break;
         }
     }
 }
