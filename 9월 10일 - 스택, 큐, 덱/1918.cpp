@@ -37,7 +37,7 @@ void make_postfix(string &exp) { // 후위 표기식 만들기
             default: cout << ch; // 피연산자 출력
         }
     }
-    while(!temp.empty()) {
+    while(!temp.empty()) { // 스택에 남아있는 연산자 출력
         cout << temp.top();
         temp.pop();
     }
