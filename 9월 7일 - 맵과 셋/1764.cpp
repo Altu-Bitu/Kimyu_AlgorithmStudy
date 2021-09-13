@@ -11,12 +11,12 @@ int main() {
     cin >> n >> m;
 
     while(n--) { // 듣도 못한 사람 입력
-        scanf("%s", input);
+        cin >> input;
         nonListen.insert(input);
     }
 
     while(m--) {
-        scanf("%s", input); // 보도 못한 사람 입력
+        cin >> input; // 보도 못한 사람 입력
         if(nonListen.find(input) != nonListen.end()) { // 듣도 보도 못한 사람 구하기
             num++;
             result.insert(input);

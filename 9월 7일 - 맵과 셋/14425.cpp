@@ -11,12 +11,12 @@ int main() {
     cin >> n >> m;
 
     while(n--) { // 집합에 문자열 삽입
-        scanf("%s", input);
+        cin >> input;
         s.insert(input);
     }
 
     while(m--) { // 문자열 검사
-        scanf("%s", input);
+        cin >> input;
         if(s.find(input) != s.end()) result++;
     }
     cout << result;

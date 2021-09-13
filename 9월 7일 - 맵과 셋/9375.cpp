@@ -25,8 +25,7 @@ int main() {
         map<string, int> kinds; // (의상 종류, 해당 의상 종류 개수)
         for(int j = 0; j < n; j++) {
             cin >> cloth >> kind;
-            if(kinds.find(kind) == kinds.end()) kinds.insert({kind, 1});
-            else kinds[kind]++;
+            kinds[kind]++;
         }
         result[i] = fashionCheck(kinds);
     }

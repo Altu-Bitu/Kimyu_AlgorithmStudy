@@ -26,7 +26,6 @@ int consider(int W0, int l0, int T, int D, int l, int A) { // 기초 대사량 변화 �
         }
         weight += tmp;
         if(weight <= 0 || l0 <= 0) {
-            cout << "Danger Diet";
             return 0;
         }
     }
@@ -43,6 +42,7 @@ void diet(int W0, int l0, int T, int D, int l, int A) { // 다이어트
         if(l0 - change_rate > 0) cout << "YOYO";
         else cout << "NO";
     }
+    else cout << "Danger Diet";
 }
 
 int main() {
