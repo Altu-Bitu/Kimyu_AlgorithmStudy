@@ -4,14 +4,8 @@
 
 using namespace std;
 
-int solution(vector<vector<int>> board, vector<int> moves) {
-    int answer = 0;
-    vector<stack<int>> b; // 열정보
-    stack<int> s; // 바구니
-
-    int row_cnt = board.size();
-    int col_cnt = board[0].size();
-
+vector<stack<int>> make_boardStack(int row_cnt, int col_cnt, vector<vector<int>> board) { // board 스택 만들기
+    vector<stack<int>> b;
     for(int i = 0; i < col_cnt; i++) {
         stack<int> temp;
         for(int j = row_cnt-1; j >= 0; j--) {
@@ -20,6 +14,16 @@ int solution(vector<vector<int>> board, vector<int> moves) {
         }
         b.push_back(temp);
     }
+    return b;
+}
+
+int solution(vector<vector<int>> board, vector<int> moves) {
+    int answer = 0;
+    stack<int> s; // 바구니
+
+    int row_cnt = board.size();
+    int col_cnt = board[0].size();
+    vector<stack<int>> b = make_boardStack(row_cnt, col_cnt, board);
 
     for(int i = 0; i < moves.size(); i++) {
         if(!s.empty() && !b[moves[i]-1].empty() && s.top() == b[moves[i]-1].top()) { // 같은 인형들이 연달아 바구니에 담긴 경우
