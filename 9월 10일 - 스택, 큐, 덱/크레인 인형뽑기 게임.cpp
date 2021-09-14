@@ -17,13 +17,9 @@ vector<stack<int>> make_boardStack(int row_cnt, int col_cnt, vector<vector<int>>
     return b;
 }
 
-int solution(vector<vector<int>> board, vector<int> moves) {
+int pickUp(vector<stack<int>> b, vector<int> moves) { // 인형 뽑기
     int answer = 0;
     stack<int> s; // 바구니
-
-    int row_cnt = board.size();
-    int col_cnt = board[0].size();
-    vector<stack<int>> b = make_boardStack(row_cnt, col_cnt, board);
 
     for(int i = 0; i < moves.size(); i++) {
         if(!s.empty() && !b[moves[i]-1].empty() && s.top() == b[moves[i]-1].top()) { // 같은 인형들이 연달아 바구니에 담긴 경우
@@ -35,8 +31,12 @@ int solution(vector<vector<int>> board, vector<int> moves) {
             b[moves[i]-1].pop();
         }
     }
+    return answer; // 사라진 인형 개수 반환
+}
 
-    return answer; // 사라진 인형 개수
+int solution(vector<vector<int>> board, vector<int> moves) {
+    vector<stack<int>> b = make_boardStack(board.size(), board[0].size(), board);
+    return pickUp(b, moves);
 }
 
 int main() {
