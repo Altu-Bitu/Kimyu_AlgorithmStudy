@@ -21,11 +21,8 @@ int main() {
     while(n--) {
         cin >> input;
         if(input.length() < m) continue; // 길이가 m 미만인 경우 단어장에 저장하지 않음
-        if(temp.find(input) == temp.end()) { // 새로운 단어 -> 단어장에 추가
-            word.push_back(input);
-            temp[input] = 1;
-        }
-        else temp[input]++; // 단어 빈도수 변경
+        if(!temp[input]) word.push_back(input); // 새로운 단어 추가
+        temp[input]++; // 단어 빈도수 변경
     }
     sort(word.begin(), word.end(), cmp); // 정렬
 

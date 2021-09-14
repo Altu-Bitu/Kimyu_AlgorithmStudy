@@ -4,9 +4,10 @@
 
 using namespace std;
 vector<int> num;
-stack<double> temp;
 
 void compute(string exp) {
+    stack<double> temp;
+
     for(int i = 0; i < exp.length(); i++) {
         if(exp[i] == '+' || exp[i] == '-' || exp[i] == '*' || exp[i] == '/') { // 연산자가 나온 경우
             // 피연산자 pop
