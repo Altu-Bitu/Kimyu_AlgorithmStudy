@@ -1,5 +1,6 @@
 #include <iostream>
 #include <deque>
+#include <string>
 
 using namespace std;
 
@@ -8,18 +9,18 @@ string make_arr(bool reverse, deque<int> &d) { // 배열 재구성
     if(!d.empty()) {
         if (reverse) { // 역순으로 출력
             while (d.size() > 1) {
-                temp += (d.back() + '0');
+                temp += to_string(d.back());
                 temp += ',';
                 d.pop_back();
             }
         } else { // 원래대로 출력
             while (d.size() > 1) {
-                temp += (d.front() + '0');
+                temp += to_string(d.front());
                 temp += ',';
                 d.pop_front();
             }
         }
-        temp += (d.front() + '0'); // 마지막 숫자 (콤마 없이 출력)
+        temp += to_string(d.back()); // 마지막 숫자 (콤마 없이 출력)
     }
     temp += ']';
     return temp;
@@ -34,7 +35,7 @@ deque<int> make_deque(string &arr) { // 덱 만들기
             d.push_back(stoi(temp)); temp = "";
             continue;
         }
-        temp += ch;
+        else if(ch >= '0' && ch <= '9') temp += ch;
     }
     return d;
 }
