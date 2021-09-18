@@ -2,7 +2,6 @@
 #include <stack>
 
 using namespace std;
-stack<pair<int, int>> top; // (수신탑 높이, 수신탑 위치)
 
 int main() {
     ios::sync_with_stdio(false);
@@ -12,6 +11,7 @@ int main() {
     int n, height;
     cin >> n;
 
+    stack<pair<int, int>> top; // (수신탑 높이, 수신탑 위치)
     for(int i = 0; i < n; i++) {
         cin >> height;
         while(!top.empty()) {

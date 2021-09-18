@@ -1,21 +1,20 @@
 #include <iostream>
+#include <vector>
 #include <queue>
+#include <algorithm>
 
 using namespace std;
-priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> time;
-priority_queue<int, vector<int>, greater<>> room;
+vector<pair<int, int>> time_table;
 
-int count_room() { // 강의실 개수 세기
-    room.push(time.top().second); // 초기 강의실 세팅
-    time.pop();
+int countRoom() { // 강의실 개수 세기
+    int idx = 0, time_cnt = time_table.size();
+    priority_queue<int, vector<int>, greater<>> room;
+    room.push(time_table[idx++].second); // 초기 강의실 세팅
 
-    while(!time.empty()) {
-        if(room.top() <= time.top().first) { // 강의실 시간 갱신
+    while(idx < time_cnt) {
+        if(room.top() <= time_table[idx].first) // (강의실 시간 갱신)
             room.pop();
-            room.push(time.top().second);
-        }
-        else room.push(time.top().second); // 새로운 강의실
-        time.pop();
+        room.push(time_table[idx++].second); // 새로운 강의실
     }
     return room.size();
 }
@@ -26,9 +25,10 @@ int main() {
 
     while(n--) { // 강의실 시간표 입력
         cin >> start >> end;
-        time.push({start, end});
+        time_table.push_back({start, end});
     }
+    sort(time_table.begin(), time_table.end());
 
-    cout << count_room();
+    cout << countRoom();
     return 0;
 }
