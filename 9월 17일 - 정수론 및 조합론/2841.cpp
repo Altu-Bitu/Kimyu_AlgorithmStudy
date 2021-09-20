@@ -9,7 +9,7 @@ int flick(int line, int flat) { // 손가락 튕기기
     return 1;
 }
 
-long long checkPreFlat(int line, int flat) {
+long long checkPreFlat(int line, int flat) { // 스택 검사
     long long count = 0;
 
     bool push = false; // 현재 음 push 여부 표시
@@ -38,8 +38,7 @@ int main() {
     while(n--) {
         cin >> temp.first >> temp.second;
         if(melody[temp.first].empty()) count += flick(temp.first, temp.second); // 스택이 비어있는 경우
-        else if(melody[temp.first].top() < temp.second) count += flick(temp.first, temp.second); // 더 높은 프렛인 경우
-        else count += checkPreFlat(temp.first, temp.second); // 같거나 낮은 프렛인 경우
+        else count += checkPreFlat(temp.first, temp.second); // 스택 검사
     }
     cout << count;
     return 0;
