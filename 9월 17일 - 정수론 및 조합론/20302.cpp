@@ -44,6 +44,7 @@ string isMintChoco() { // 민트 초코 여부 판별하기
 
 int main() {
     int n, num;
+    bool is_zero = false; // 0을 입력하는 경우 무조건 정수
     char op;
     cin >> n;
 
@@ -52,21 +53,27 @@ int main() {
     // 첫번째 숫자 입력하기 (분자)
     cin >> num;
     multi_fact(num);
+    if(num == 0) is_zero = true;
     cin.ignore();
     n--;
 
     while(n--) { // 나머지 숫자 입력하기
         cin >> op >> num;
-        switch(op) {
-            case '*': // 곱셈 (분자)
-                multi_fact(num);
-                break;
-            case '/': // 나눗셈 (분모)
-                divide_fact(num);
-                break;
+        if(num == 0) is_zero = true;
+        if(!is_zero) {
+            switch(op) {
+                case '*': // 곱셈 (분자)
+                    multi_fact(num);
+                    break;
+                case '/': // 나눗셈 (분모)
+                    divide_fact(num);
+                    break;
+            }
         }
         cin.ignore();
     }
-    cout << isMintChoco(); // 민트 초코 여부 출력
+
+    if(is_zero) cout << "mint chocolate";
+    else cout << isMintChoco(); // 민트 초코 여부 출력
     return 0;
 }
