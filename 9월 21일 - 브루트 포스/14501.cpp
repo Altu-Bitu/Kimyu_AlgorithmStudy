@@ -2,12 +2,13 @@
 #include <vector>
 
 using namespace std;
-vector<int> t, p;
+vector<pair<int, int>> consult; // time, pay 쌍
 
 int getProfit(int day, int last) { // 최대 이익 구하기
-    if(day >= last || day+ t[day] -1 >= last) return 0; // 기한 초과한 경우
+    if(day >= last) return 0; // 기한 초과한 경우
+    else if(day+ consult[day].first -1 >= last) return getProfit(day+1, last);
 
-    int a = p[day] + getProfit(day + t[day], last); // 오늘 일하는 경우
+    int a = consult[day].second + getProfit(day + consult[day].first, last); // 오늘 일하는 경우
     int b = getProfit(day+1, last); // 오늘 일하지 않는 경우
     return a >= b ? a : b;
 }
@@ -16,10 +17,9 @@ int main() {
     int n;
     cin >> n;
 
-    t.assign(n, 0);
-    p.assign(n, 0);
+    consult.assign(n, {0, 0});
     for(int i = 0; i < n; i++)
-        cin >> t[i] >> p[i];
+        cin >> consult[i].first >> consult[i].second;
     cout << getProfit(0, n);
     return 0;
 }

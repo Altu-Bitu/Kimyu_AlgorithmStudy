@@ -22,7 +22,7 @@ void setInvalid() { // 불가능한 수 세팅
             suppose[i] = false;
             continue;
         }
-        else if(check[0] == check[1] || check[0] == check[2] || check[1] == check[2]) { // 3. 같은 숫자 불가능
+        if(check[0] == check[1] || check[0] == check[2] || check[1] == check[2]) { // 3. 같은 숫자 불가능
             suppose[i] = false;
             continue;
         }

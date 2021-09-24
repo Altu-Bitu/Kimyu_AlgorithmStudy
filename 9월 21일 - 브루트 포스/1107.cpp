@@ -13,13 +13,12 @@ bool possible(int num) { // 리모컨으로 누를 수 있는 채널인가
 }
 
 int pushButton(int n) { // 최소 클릭 수
-    int temp, count = n - CHANNEL;
+    int temp, count = abs(n - CHANNEL);
 
-    for(int i = 0; i <= MAX_CHANNEL; i++) {
+    for(int i = 0; i <= 2 * MAX_CHANNEL; i++) {
         if(possible(i)) {
-            // '+' 누르는 횟수 + 숫자 직접 입력
-            if(n >= i) temp = n-i + to_string(i).length();
-            else temp = i-n + to_string(i).length();
+            // '+/-' 누르는 횟수 + 숫자 직접 입력
+            temp = abs(n-i) + to_string(i).length();
             count = min(count, temp);
         }
     }

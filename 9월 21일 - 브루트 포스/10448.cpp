@@ -14,17 +14,17 @@ void getTriangular() { // 1000 이하 삼각수 구하기
     }
 }
 
-int eureka(int num) { // 해당 자연수가 3개의 삼각수의 합으로 표현되는가
+bool eureka(int num) { // 해당 자연수가 3개의 삼각수의 합으로 표현되는가
     int size = triangular.size();
     for(int i = 0; i < size; i++) {
         for(int j = 0; j < size; j++) {
             for(int k = 0; k < size; k++) {
                 if(num == triangular[i] + triangular[j] + triangular[k])
-                    return 1;
+                    return true;
             }
         }
     }
-    return 0;
+    return false;
 }
 
 int main() {
