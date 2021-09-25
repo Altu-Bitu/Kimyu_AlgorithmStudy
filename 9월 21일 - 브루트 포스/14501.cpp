@@ -10,7 +10,7 @@ int getProfit(int day, int last) { // 최대 이익 구하기
 
     int a = consult[day].second + getProfit(day + consult[day].first, last); // 오늘 일하는 경우
     int b = getProfit(day+1, last); // 오늘 일하지 않는 경우
-    return a >= b ? a : b;
+    return max(a, b);
 }
 
 int main() {
