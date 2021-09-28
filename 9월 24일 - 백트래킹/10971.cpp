@@ -17,7 +17,6 @@ void backtracking(int cnt, int start, int sum) {
         return;
     }
 
-    check[start] = true; // visited
     for (int i = 1; i <= n; i++) {
         if (!check[i] && w[start][i]) {
             check[i] = true;
@@ -37,7 +36,9 @@ int main() {
 
     for(int i = 1; i <= n; i++) {
         start_pos = i;
+        check[i] = true;
         backtracking(0, i, 0);
+        check[i] = false;
     }
     cout << min_cost;
     return 0;

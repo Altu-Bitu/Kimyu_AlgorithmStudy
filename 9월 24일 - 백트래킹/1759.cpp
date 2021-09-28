@@ -14,7 +14,7 @@ void backtracking(int cnt, int start, int vowel) {
             // 1. 최소 한 개의 모음
             // 2. 최소 두 개의 자음
             for (int i = 0; i < cnt; i++) // 가능한 암호 출력
-                cout << cipher[i] << ' ';
+                cout << cipher[i];
             cout << '\n';
         }
         return;
@@ -33,7 +33,7 @@ int main() {
 
     for(int i = 1; i <= c; i++)
         cin >> alphabet[i];
-    sort(alphabet, alphabet+c); // 입력한 문자들 정렬
+    sort(alphabet, alphabet+c+1); // 입력한 문자들 정렬
 
     backtracking(0, 1, 0);
     return 0;
