@@ -7,7 +7,7 @@ int n, difference = 40000; // 인원 수, 능력치 차이 저장하는 변수
 bool check[SIZE+1];    // 스타트팀 배정 여부 저장하는 배열
 int s[SIZE+1][SIZE+1]; // 능력치 저장하는 배열
 
-void computeSkillScore() { // 능력치 계산
+int computeSkillScore() { // 능력치 계산
     int start_skill = 0, link_skill = 0;
     for(int i = 1; i <= n; i++) {
         for(int j = 1; j <= n; j++) {
@@ -15,12 +15,12 @@ void computeSkillScore() { // 능력치 계산
             else if(!check[i] && !check[j]) link_skill += s[i][j];
         }
     }
-    difference = min(difference, abs(start_skill - link_skill)); // 능력치 차이 재설정
+    return abs(start_skill - link_skill); // 능력치 차이 재설정
 }
 
 void backtracking(int idx) {
     if(idx == n) { // 기저 조건: idx 마지막 원소 도착
-        computeSkillScore();
+        difference = min(difference, computeSkillScore());
         return;
     }
 

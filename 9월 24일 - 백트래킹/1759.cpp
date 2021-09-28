@@ -33,7 +33,7 @@ int main() {
 
     for(int i = 1; i <= c; i++)
         cin >> alphabet[i];
-    sort(alphabet, alphabet+c+1); // 입력한 문자들 정렬
+    sort(alphabet+1, alphabet+c+1); // 입력한 문자들 정렬
 
     backtracking(0, 1, 0);
     return 0;
