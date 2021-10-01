@@ -5,7 +5,7 @@ using namespace std;
 const int SIZE = 100;
 
 int n;
-bool apple[SIZE+1][SIZE+1], body[SIZE+1][SIZE+1];
+int board[SIZE+1][SIZE+1]; // (사과 : 1 / 뱀 : 2)
 int dx[4] = {0, -1, 0, 1}, dy[4] = {-1, 0, 1, 0}; // (상 좌 하 우)
 char change[SIZE*SIZE+1];
 queue<pair<int, int>> snake;
@@ -23,20 +23,17 @@ int dummyGame() {
     while(true) {
         time++;
 
-        // 몸(back)
-        row = snake.back().first + dy[dir];
+        row = snake.back().first + dy[dir]; // 몸 (back)
         col = snake.back().second + dx[dir];
-        if(row < 1 || row > n || col < 1 || col > n || body[row][col]) break; // 벽이나 자기 자신의 몸과 부딪히는 경우
-        snake.push({row, col}); // 몸 PUSH
-        body[row][col] = true;
-        dir = changeDirection(time, dir); // 방향 변환
+        if(row < 1 || row > n || col < 1 || col > n || board[row][col] == 2) break; // 벽이나 자기 자신의 몸과 부딪히는 경우
 
-        // 꼬리 (front)
-        if(apple[row][col]) apple[row][col] = false; // 사과 발견 -> 꼬리 그대로 & 사과 먹기
-        else { // 사과 없음 -> 꼬리 줄이기
-            body[snake.front().first][snake.front().second] = false;
+        if(board[row][col] == 0) { // 사과 없음 -> 꼬리 줄이기
+            board[snake.front().first][snake.front().second] = 0; // 꼬리 (front)
             snake.pop();
         }
+        snake.push({row, col}); // 몸 PUSH
+        board[row][col] = 2;
+        dir = changeDirection(time, dir); // 방향 변환
     }
     return time;
 }
@@ -50,7 +47,7 @@ int main() {
 
     while(k--) { // 사과 위치 입력
         cin >> row >> col;
-        apple[row][col] = true;
+        board[row][col] = 1;
     }
 
     cin >> l;

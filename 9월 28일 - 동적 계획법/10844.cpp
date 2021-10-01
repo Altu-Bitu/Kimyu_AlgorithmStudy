@@ -3,10 +3,9 @@
 using namespace std;
 const int MAX = 100, Q = 1000000000;
 
-int dp[MAX+1][10];
-
 long long countStairs(int n) { // 계단 수 개수 세기
     long long count = 0;
+    int dp[MAX+1][10];
     dp[1][0] = 0; // 0으로 시작하는 수는 계단 수 아님
 
     // i: 자릿수 / j: 해당 자리의 숫자
