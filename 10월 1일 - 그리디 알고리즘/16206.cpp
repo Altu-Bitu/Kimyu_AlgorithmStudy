@@ -8,7 +8,7 @@ vector<int> v1, v2; // v1  10의 배수 / v2 : 10의 배수 아닌 경우
 
 int cutCake(int len) { // 케이크 자르기 & 길이 10인 케이크 개수 반환
     if(len == 10) return 1;
-    else if(len < 0) return 0;
+    else if(len < 10) return 0;
     if(m == 0) return 0;
 
     int cake = 0;
