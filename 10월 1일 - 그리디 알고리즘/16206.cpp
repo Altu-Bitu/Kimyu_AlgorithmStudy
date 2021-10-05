@@ -7,8 +7,8 @@ int n, m;
 vector<int> v; // 케이크 길이 저장하는 배열
 
 bool cmp(int &i1, int &i2) { // (10의 배수인 케이크가 먼저 와야 함)
-    if(i1%10 && !(i2%10)) return i1%10 < i2%10;
-    else if(!(i1%10) && i2%10) return i1%10 > i2%10;
+    if(i1%10 && !(i2%10)) return false;
+    else if(!(i1%10) && i2%10) return true;
     return i1 < i2;
 }
 
