@@ -20,7 +20,7 @@ int main() {
     side.assign(n, 0);
     for(int i = 0; i < n; i++)
         cin >> side[i];
-    sort(side.rbegin(), side.rend()); // 길이 내림차순 정렬
+    sort(side.begin(), side.end(), greater<>()); // 길이 내림차순 정렬
 
     cout << biggestTriangle(n);
     return 0;
