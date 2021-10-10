@@ -15,7 +15,6 @@ void divide(int left, int right, string paper) {
     }
     // (마지막 l == r이므로) l과 r 은 mid 값
     divide(left, l-1, paper); // left ~ mid전까지 검사
-    divide(l+1, right, paper); // mid후부터 ~ right 검사
 }
 
 int main() {
@@ -26,7 +25,7 @@ int main() {
     while(t--) {
         cin >> paper;
 
-        result = true;
+        result = true; // 테스트케이스마다 상태 초기화
         divide(0, paper.length()-1, paper);
         if(result) cout << "YES\n";
         else cout << "NO\n";
