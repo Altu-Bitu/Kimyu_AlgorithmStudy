@@ -28,11 +28,11 @@ int solution(vector<int> stones, int k) {
 
         if(!success) right = mid - 1; // 징검다리 건널 수 없음 -> 사람 줄이기
         else { // 징검다리 건널 수 있음 -> 사람 수 늘리기
-            answer = mid;
+            answer = mid + 1; // (mid만큼 줄어들고도 한 사람 더 건널 수 있음)
             left = mid + 1;
         }
     }
-    return answer + 1;
+    return answer;
 }
 
 int main() {
