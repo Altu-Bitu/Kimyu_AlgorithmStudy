@@ -1,32 +1,52 @@
 #include <iostream>
-#include <queue>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
-priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> t; // (first : 심사대 비는 시간 / second : 소요 시간)
 
-int minTime(int m) { // 최소 심사 시간 반환
-    int sec, pass = 0;
-    while(!t.empty()) {
-        pass++;
-        sec = t.top().first;
-        if (pass == m) return sec; // 모두 통과한 경우 시간 반환
-        t.push({sec + t.top().second, t.top().second});
-        t.pop();
+typedef long long ll;
+int n;
+vector<int> t;
+
+// 심사 시간이 mid일 때, 심사받을 수 있는 사람 수
+ll pass(int mid) {
+    ll cnt = 0;
+    for(int i = 0; i < n; i++) {
+        if(mid < t[i]) return cnt;
+        cnt += (mid / t[i]);
     }
+    return cnt;
+}
+
+ll minTime(ll left, ll right, int m) { // 최소 심사 시간 반환
+    ll sec = right;
+
+    while(left <= right) {
+        ll mid = (left + right) / 2;
+        ll cnt = pass(mid);
+
+        if(cnt < m) left = mid + 1; // 모든 사람 통과하지 못함 -> 심사 시간 늘리기
+        else if(cnt >= m) {         // 모든 사람 통과 -> 심사 시간 줄이기
+            sec = mid;
+            right = mid - 1;
+        }
+    }
+    return sec;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL); cout.tie(NULL);
 
-    int n, m, time;
+    int m;
     cin >> n >> m;
 
-    for(int i = 0 ; i < n; i++) {
-        cin >> time;
-        t.push({time, time});
-    }
+    t.assign(n, 0);
+    for(int i = 0 ; i < n; i++)
+        cin >> t[i];
+    sort(t.begin(), t.end());
 
-    cout << minTime(m);
+    // left : 심사 소요 시간 최솟값 / right : 심사 소요 시간 최댓값
+    cout << minTime(t[0], t[n-1] * m, m);
     return 0;
 }

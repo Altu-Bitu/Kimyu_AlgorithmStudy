@@ -10,8 +10,10 @@ vector<int> l;
 // 과자 길이가 len일 때, 나눠줄 수 있는 조카 수
 int divide(int len) {
     int nephew = 0;
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < n; i++) {
+        if(l[i] < len) continue; // 사용할 수 없는 과자
         nephew += (l[i] / len);
+    }
     return nephew;
 }
 

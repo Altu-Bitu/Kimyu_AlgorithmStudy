@@ -35,15 +35,16 @@ int bluelay(int left, int right, int m) {
 }
 
 int main() {
-    int m;
+    int m, long_lec = 0;
     cin >> n >> m;
 
     lecture.assign(n, 0);
-    for(int i = 0; i < n; i++) // 강의 길이 입력
+    for(int i = 0; i < n; i++) { // 강의 길이 입력
         cin >> lecture[i];
-    sort(lecture.begin(), lecture.end());
+        long_lec = max(long_lec, lecture[i]);
+    }
 
     // left : 블루레이 최소 길이 / right : 블루레이 최대 길이
-    cout << bluelay(lecture[n-1], lecture[n-1] * n, m);
+    cout << bluelay(long_lec, long_lec * n, m);
     return 0;
 }

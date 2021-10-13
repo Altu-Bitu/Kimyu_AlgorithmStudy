@@ -19,7 +19,7 @@ int main() {
 
     for(int i = 0; i < n; i++) {
         cin >> g >> power;
-        if(grade.find(power) != grade.end()) continue;
+        if(grade[power] != "") continue;
         grade[power] = g;
     }
 

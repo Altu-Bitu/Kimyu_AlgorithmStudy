@@ -38,16 +38,17 @@ int findMin(int left, int right, int m) { // 구간 점수 최댓값의 최솟값 출력
 }
 
 int main() {
-    int m, max_num = 0;
+    int m, max_num = 0, min_num = 10001;
     cin >> n >> m;
 
     v.assign(n, 0);
     for(int i = 0; i < n; i++) {
         cin >> v[i];
         max_num = max(max_num, v[i]);
+        min_num = min(min_num, v[i]);
     }
 
     // left: 구간 점수 최댓값의 최솟값 / right: 구간 점수 최댓값의 최댓값
-    cout << findMin(0, max_num, m);
+    cout << findMin(0, max_num-min_num, m);
     return 0;
 }
