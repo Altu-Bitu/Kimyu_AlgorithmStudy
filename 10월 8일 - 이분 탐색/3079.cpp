@@ -9,7 +9,7 @@ int n;
 vector<int> t;
 
 // 심사 시간이 mid일 때, 심사받을 수 있는 사람 수
-ll pass(int mid) {
+ll pass(ll mid) {
     ll cnt = 0;
     for(int i = 0; i < n; i++) {
         if(mid < t[i]) return cnt;
@@ -47,6 +47,6 @@ int main() {
     sort(t.begin(), t.end());
 
     // left : 심사 소요 시간 최솟값 / right : 심사 소요 시간 최댓값
-    cout << minTime(t[0], t[n-1] * m, m);
+    cout << minTime(t[0], (ll) t[n-1] * m, m);
     return 0;
 }

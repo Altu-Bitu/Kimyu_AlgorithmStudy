@@ -11,7 +11,7 @@ vector<int> l;
 int divide(int len) {
     int nephew = 0;
     for(int i = 0; i < n; i++) {
-        if(l[i] < len) continue; // 사용할 수 없는 과자
+        if(l[i] < len) return nephew; // 사용할 수 없는 과자
         nephew += (l[i] / len);
     }
     return nephew;
@@ -40,9 +40,9 @@ int main() {
     l.assign(n, 0);
     for(int i = 0; i <n; i++)
         cin >> l[i];
-    sort(l.begin(), l.end());
+    sort(l.begin(), l.end(), greater<>()); // 내림차순 정렬
 
     // left : 쿠키 최소 길이 / right: 쿠키 최고 길이
-    cout << cookie(1, l[n-1], m);
+    cout << cookie(1, l[0], m);
     return 0;
 }
