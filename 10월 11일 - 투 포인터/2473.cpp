@@ -5,37 +5,31 @@
 using namespace std;
 
 typedef long long ll;
-typedef struct liquid {
-    int l[3];
-}liquid;
+int liquid[3];
 vector<int> l;
 
 // 세 가지 용액 혼합값이 0에 가깝도록
-liquid threeLiquid(int n) {
-    liquid result;
+void threeLiquid(int n) {
     ll min_diff = 3 * 1e9 + 1; // 세 가지 용액 혼합값 최솟값 저장하는 변수
 
     for(int i = 0; i < n; i++) { // i번째 -> 나머지 용액
-        int left = 0, right = n-1;
+        int left = i+1, right = n-1;
 
         while(left < right && min_diff) { // (min_diff가 0이면 stop)
-            if(left == i) { left++; continue; }
-            if(right == i) { right--; continue; }
-
             ll mix = (ll) l[left] + l[i] + l[right];
+
             if(abs(mix) < min_diff) {
                 min_diff = abs(mix);
-                result.l[0] = l[left];
-                result.l[1] = l[i];
-                result.l[2] = l[right];
+                liquid[0] = l[left];
+                liquid[1] = l[i];
+                liquid[2] = l[right];
             }
 
             if(mix > 0) right--;     // 더 작은 값 만들기
             else if(mix < 0) left++; // 더 큰 값 만들기
         }
     }
-    sort(result.l, result.l+3); // 세 용액 오름차순 정렬
-    return result;
+    sort(liquid, liquid+3); // 세 용액 오름차순 정렬
 }
 
 int main() {
@@ -50,7 +44,7 @@ int main() {
         cin >> l[i];
     sort(l.begin(), l.end());
 
-    liquid result = threeLiquid(n);
-    cout << result.l[0] << ' ' << result.l[1] << ' ' << result.l[2];
+    threeLiquid(n);
+    cout << liquid[0] << ' ' << liquid[1] << ' ' << liquid[2];
     return 0;
 }

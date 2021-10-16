@@ -5,22 +5,27 @@
 using namespace std;
 vector<int> a;
 
-int findGood(int n) {
+int twoPointer(int i, int n) {
+    int left = 0, right = n-1;
+
+    while(left < right) { // a[i]는 좋은 수인가
+        if(left == i) { left++; continue; }
+        if(right == i) { right--; continue; }
+
+        // 서로 다른 수 조건 만족시
+        int sum = a[left] + a[right];
+        if(a[i] == sum) return 1; // 좋은 수인 경우
+        else if(a[i] < sum) right--;
+        else left++;
+    }
+    return 0; // 좋은 수 아닌 경우
+}
+
+int findGood(int n) { // 좋은 수 개수 반환
     int cnt = 0;
 
-    for(int i = 0; i < n; i++) {
-        int left = 0, right = n-1;
-
-        while(left < right) { // a[i]는 좋은 수인가
-            if(left == i) { left++; continue; }
-            if(right == i) { right--; continue; }
-
-            int sum = a[left] + a[right];
-            if(a[i] == sum) { cnt++; break; }
-            else if(a[i] < sum) right--;
-            else left++;
-        }
-    }
+    for(int i = 0; i < n; i++)
+        cnt += twoPointer(i, n);
     return cnt;
 }
 

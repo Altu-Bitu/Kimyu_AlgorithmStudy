@@ -4,27 +4,41 @@
 using namespace std;
 const int N = 30000;
 
-bool sushi[N+1];
+int cnt = 0; // 구간별 서로 다른 스시 종류 개수 저장하는 변수
+int sushi[N+1];
 vector<int> belt;
 
-int countSushi(int n, int k, int c) {
-    int s = 0;
-    for(int i = 0; i < n; i++) {
-        int kind = 0;
-        // i부터 k개 검사
-        for(int j = i; j < i + k; j++) {
-            if(sushi[belt[j % n]]) continue;
-            // 스시 카운트
-            sushi[belt[j % n]] = true; kind++;
-        }
-        if(!sushi[c]) kind++; // 쿠폰에 적힌 스시가 포함되지 않은 경우 쿠폰 사용
-        s = max(s, kind);
+void removeSushi(int left) {
+    if(sushi[belt[left]] == 1) cnt--; // (해당 종류의 스시 아예 사라짐)
+    sushi[belt[left]]--;
+}
 
-        // 스시 초기화
-        for(int j = i; j < i + k; j++)
-            sushi[belt[j % n]] = false;
+void addSushi(int right) {
+    if(!sushi[belt[right]]) cnt++; // (새로운 종류의 스시)
+    sushi[belt[right]]++;
+}
+
+int maxSushi(int n, int k, int c) {
+    int max_sushi = 0;
+    sushi[c] = 1; cnt++; // 쿠폰 적용
+
+    for(int i = 0; i < k; i++) // 첫번째 구간 탐색
+        addSushi(i);
+    max_sushi = max(max_sushi, cnt); // 최댓값 갱신
+
+    // left: 이번 벨트에서 제거되는 스시 / right: 이번 벨트에서 추가되는 스시
+    int left = 0, right = k;
+    while(true) {
+        removeSushi(left); // 스시 제거
+        addSushi(right);   // 스시 추가
+        max_sushi = max(max_sushi, cnt); // 최댓값 갱신
+
+        // 한 칸씩 이동
+        right = (right + 1) % n;
+        if(right == k) break; // (모든 구간 탐색 완료)
+        left = (left + 1) % n;
     }
-    return s;
+    return max_sushi;
 }
 
 int main() {
@@ -35,6 +49,6 @@ int main() {
     for(int i = 0; i < n; i++)
         cin >> belt[i];
 
-    cout << countSushi(n, k, c);
+    cout << maxSushi(n, k, c);
     return 0;
 }
