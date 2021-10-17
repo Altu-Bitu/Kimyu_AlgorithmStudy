@@ -14,11 +14,11 @@ bool twoPointer(int i, int n) {
 
         // 서로 다른 수 조건 만족시
         int sum = a[left] + a[right];
-        if(a[i] == sum) return 1; // 좋은 수인 경우
+        if(a[i] == sum) return true; // 좋은 수인 경우
         else if(a[i] < sum) right--;
         else left++;
     }
-    return 0; // 좋은 수 아닌 경우
+    return false; // 좋은 수 아닌 경우
 }
 
 int findGood(int n) { // 좋은 수 개수 반환

@@ -2,10 +2,10 @@
 #include <vector>
 
 using namespace std;
-const int N = 30000;
+const int MAX_KIND = 30000;
 
 int cnt = 0; // 구간별 서로 다른 스시 종류 개수 저장하는 변수
-int sushi[N+1];
+int sushi[MAX_KIND+1];
 vector<int> belt;
 
 void removeSushi(int left) {
@@ -28,16 +28,15 @@ int maxSushi(int n, int k, int c) {
 
     // left: 이번 벨트에서 제거되는 스시 / right: 이번 벨트에서 추가되는 스시
     int left = 0, right = k;
-    while(true) {
+    do {
         removeSushi(left); // 스시 제거
         addSushi(right);   // 스시 추가
         max_sushi = max(max_sushi, cnt); // 최댓값 갱신
 
         // 한 칸씩 이동
         right = (right + 1) % n;
-        if(right == k) break; // (모든 구간 탐색 완료)
         left = (left + 1) % n;
-    }
+    } while(right != k);
     return max_sushi;
 }
 

@@ -1,41 +1,38 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
-
 vector<int> a, b;
 
-int arrSum(int n, int m, int t) { // 부 배열 쌍 개수 출력
-    int cnt = 0;
-    int a_left = 0, a_right = 1;
+long long arrSum(int n, int m, int t) { // 부 배열 쌍 개수 출력
+    long long cnt = 0;
+    // 각각 a의 부배열, b의 부배열 저장하는 맵
+    map<int, int> partial_a, partial_b; // (first: 부 배열 값 / second: 해당 부 배열 값 개수)
 
-    while(a_left < a_right && a_right <= n) {
-        int a_sum = a[a_right] - a[a_left];
-        if(a_sum >= t) { // a 부배열 합이 t보다 크거나 같으면 부 배열 쌍 불가능
-            a_left++;
-            if(a_left == a_right) a_right++;
-            continue;
+    for(int a_right = n; a_right > 0; a_right--) { // a의 모든 부 배열 구하기
+        for (int a_left = 0; a_left < a_right; a_left++) {
+            int a_sum = a[a_right] - a[a_left];
+            partial_a[a_sum]++;
         }
-
-        int b_left = 0, b_right = 1;
-        while (b_left < b_right && b_right <= m) {
-            int b_sum = b[b_right] - b[b_left];
-
-            if (a_sum + b_sum == t) { cnt++; b_left++; } // 부 배열 쌍 발견
-            else if (a_sum + b_sum >= t) {               // b 배열 구간 줄이기
-                b_left++;
-                if(b_left == b_right) b_right++;
-            }
-            else b_right++;                              // b 배열 구간 늘리기
-        }
-
-        if(a_right - a_left > 1) a_left++; // a 배열 구간 줄이기
-        else a_right++;                    // 더이상 a 배열 구간 줄일 수 없음 -> a 배열 구간 늘리기
     }
+    for(int b_right = m; b_right > 0; b_right--) { // b의 모든 부 배열 구하기
+        for(int b_left = 0; b_left < b_right; b_left++) {
+            int b_sum = b[b_right] - b[b_left];
+            partial_b[b_sum]++;
+        }
+    }
+
+    // (a 부 배열을 기준으로)
+    for(auto iter = partial_a.begin(); iter != partial_a.end(); iter++)
+        cnt += (long long) iter->second * partial_b[t - iter->first]; // (해당 부배열 값 개수) * ((t - a 부배열 값) 개수)
     return cnt;
 }
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
     int t, n, m, num;
     cin >> t;
 
