@@ -5,7 +5,7 @@
 using namespace std;
 vector<int> a;
 
-int twoPointer(int i, int n) {
+bool twoPointer(int i, int n) {
     int left = 0, right = n-1;
 
     while(left < right) { // a[i]는 좋은 수인가
