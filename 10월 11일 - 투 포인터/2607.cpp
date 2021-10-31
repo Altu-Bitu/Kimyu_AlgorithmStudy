@@ -6,28 +6,20 @@ int alpha[26];
 vector<string> word;
 
 bool checkConfiguration(int cmp[26]) { // 두 문자 구성 비교하기
-    int different = 0;
+    // idx : (초기 상태 : -1) 두 문자 구성이 다른 경우 해당 알파벳 번호 저장
+    int different = 0, idx = -1;
 
-    int left = 0, right = 25;
-    while(left < right) {
-        while(left < right) { // 다른 구성 나올 때까지 반복
-            if(alpha[left] != cmp[left]) break;
-            left++;
-        }
-        different += abs(alpha[left] - cmp[left]);
+    for(int i = 0; i < 26; i++) {
+        if(alpha[i] == cmp[i]) continue;
+
+        // 같은 구성 ->  1. 한 문자 더하거나 빼기  2. 한 문자 다른 문자로 바꾸기
+        different += abs(alpha[i] - cmp[i]);
         if(different > 2) return false;
-        if(left == right) break;
 
-        while(left < right) { // 다른 구성 나올 때까지 반복
-            if(alpha[right] != cmp[right]) break;
-            right--;
-        }
-        different += abs(alpha[right] - cmp[right]);
-        if(different > 2) return false;
-        if(left == right) break;
-
-        // 하나의 문자를 다른 문자로 바꿀 수 있는 경우
-        if((alpha[left] + alpha[right]) != (cmp[left] + cmp[right])) return false;
+        // idx != -1 : 이전에 두 문자 구성이 다른 경우가 있었음
+        // alpha[idx] + alpha[i] != cmp[idx] + cmp[i] : 이전에 달랐던 문자를 이번 문자로 바꿀 수 없음
+        if(idx != -1 && alpha[idx] + alpha[i] != cmp[idx] + cmp[i]) return false; // 2번 위반
+        idx = i;
     }
     return true;
 }
