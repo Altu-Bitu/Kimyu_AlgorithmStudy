@@ -5,6 +5,7 @@ using namespace std;
 
 int n, m;
 int max_num = 0;
+int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0}; // 상 하 좌 우
 vector<vector<int>> t, visited;
 
 void backtracking(int row, int col, int sum, int len) { // 백트래킹
@@ -13,7 +14,6 @@ void backtracking(int row, int col, int sum, int len) { // 백트래킹
         return;
     }
 
-    int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0}; // 상 하 좌 우
     for(int i = 0; i < 4; i++) {
         int new_row = row + dx[i];
         int new_col = col + dy[i];
