@@ -5,8 +5,8 @@
 using namespace std;
 
 queue<int> q; // 유포자 저장하는 큐
-vector<int> time;
-vector<vector<int>> people;
+vector<int> time; // 루머 믿는 데 걸리는 시간 저장
+vector<vector<int>> people; // i사람의 주변인 저장
 
 bool trust(int p) { // 루머 믿을 것인가
     int believer = 0;

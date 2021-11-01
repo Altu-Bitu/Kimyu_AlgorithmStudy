@@ -18,11 +18,11 @@ int bfs(int n, int k) {
 
         // 1. °È±â
         int walk1 = temp - 1, walk2 = temp + 1;
-        if(walk1 >= 0 && !time[walk1]) {
+        if(walk1 >= 0 && !time[walk1]) { // ¿ÞÂÊÀ¸·Î ÇÑ Ä­
             q.push(walk1);
             time[walk1] = time[temp] + 1;
         }
-        if(walk2 <= MAX_TIME && !time[walk2]) {
+        if(walk2 <= MAX_TIME && !time[walk2]) { // ¿À¸¥ÂÊÀ¸·Î ÇÑ Ä­
             q.push(walk2);
             time[walk2] = time[temp] + 1;
         }
