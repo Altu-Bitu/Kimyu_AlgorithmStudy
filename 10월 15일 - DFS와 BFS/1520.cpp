@@ -3,14 +3,15 @@
 
 using namespace std;
 
-int m, n; //h = 0;
+int m, n;
 int dx[4] = {0, 0, -1, 1}, dy[4] = {-1, 1, 0, 0}; // 상 하 좌 우
 vector<vector<int>> s_map, dp;
 
 int dfs(int row, int col) {
     if(row == m-1 && col == n-1) return 1; // 목적지 도착
-    if(dp[row][col]) return dp[row][col];  // 이미 dp값이 존재하는 경우 바로 리턴
+    if(dp[row][col] != -1) return dp[row][col]; // 이미 dp값이 존재하는 경우 바로 리턴
 
+    dp[row][col] = 0;
     for(int i = 0; i < 4; i++) {
         int new_row = row + dx[i];
         int new_col = col + dy[i];
@@ -27,7 +28,7 @@ int main() {
 
     cin >> m >> n;
     s_map.assign(m, vector<int> (n, 0));
-    dp.assign(m, vector<int> (n, 0));
+    dp.assign(m, vector<int> (n, -1));
     for(int i = 0; i < m; i++) {
         for(int j = 0; j < n; j++)
             cin >> s_map[i][j];
