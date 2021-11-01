@@ -1,23 +1,39 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <set>
 
 using namespace std;
 
 queue<pair<int, int>> q; // (first: 전파자, second: 전파 시간)
-vector<int> time; // 루머 믿는 데 걸리는 시간
+vector<int> time, believer; // 루머 믿는 데 걸리는 시간, 루머 믿는 사람
 vector<vector<int>> people; // 주변인 저장
 
-queue<pair<int, int>> simultaneousSpreader() { // 동시 전파자 리턴
-    queue<pair<int, int>> simultaneous_spreader; // 동시 전파자 저장하는 큐
-    simultaneous_spreader.push(q.front());
+vector<pair<int, int>> simultaneousSpreader() { // 동시 전파자 리턴
+    vector<pair<int, int>> simultaneous_spreader; // 동시 전파자 저장하는 큐
+    simultaneous_spreader.push_back(q.front());
+    q.pop();
 
     while(!q.empty()) { // 동시 전파자 있는가
         if(simultaneous_spreader.front().second != q.front().second) break; // 동시 전파자 더이상 없음
-        simultaneous_spreader.push(q.front());
+        simultaneous_spreader.push_back(q.front());
         q.pop();
     }
     return simultaneous_spreader;
+}
+
+set<int> findNeighbor(int simul_cnt, vector<pair<int, int>> simultaneous_spreader) { // 주변인 리턴
+    set<int> neighbor;
+    for(int i = 0; i < simul_cnt; i++) {
+        int spreader = simultaneous_spreader[i].first; // 전파자
+
+        for (int j = 0; j < people[spreader].size(); j++) {
+            int near = people[spreader][j];
+            believer[near]++;
+            if(time[near] == -1) neighbor.insert(near); // 루머 믿지 않는 주변인만 고려
+        }
+    }
+    return neighbor;
 }
 
 void spreadRumor(queue<pair<int, int>> &temp) { // 루머 전파
@@ -31,30 +47,21 @@ void spreadRumor(queue<pair<int, int>> &temp) { // 루머 전파
     }
 }
 
-bool trust(int p) { // 루머 믿을 것인가
-    int believer = 0;
-    for(int i : people[p]) // 주변 사람 검사
-        if (time[i] != -1) believer++;
-    return (double) believer >= (double) people[p].size() / 2;
-}
+bool trust(int near) { return (double) believer[near] >= (double) people[near].size() / 2; }
 
 void bfs() {
     while(!q.empty()) {
-        queue<pair<int, int>> simultaneous_spreader = simultaneousSpreader(); // 동시 전파자
+        vector<pair<int, int>> simultaneous_spreader = simultaneousSpreader(); // 동시 전파자
+        int simul_cnt = simultaneous_spreader.size(); // 동시 전파자 수
+        if(!simul_cnt) continue;
+
+        set<int> neighbor = findNeighbor(simul_cnt, simultaneous_spreader); // 주변인
+        int spread_time = simultaneous_spreader[0].second; // 전파 시간
+
         queue<pair<int, int>> temp; // 전파 대상 임시 저장
+        for(auto iter = neighbor.begin(); iter != neighbor.end(); iter++) // 주변인 중 전파 대상 탐색
+            if(trust(*iter)) temp.push({*iter, spread_time});
 
-        while(!simultaneous_spreader.empty()) {
-            int spreader = simultaneous_spreader.front().first;     // 전파자
-            int spread_time = simultaneous_spreader.front().second; // 전파 시간
-            simultaneous_spreader.pop();
-
-            for(int i = 0; i < people[spreader].size(); i++) { // 주변인 검사
-                int near = people[spreader][i]; // 전파 대상
-
-                if(time[near] != -1) continue;   // 이미 루머 믿는 사람 전파 불가
-                if(trust(near)) temp.push({near, spread_time}); // 전파 대상 임시 저장
-            }
-        }
         spreadRumor(temp); // 루머 전파 (동시 전파자의 전파 대상 파악 후 동시 전파)
     }
 }
@@ -72,6 +79,7 @@ int main() {
 
     cin >> n;
     time.assign(n+1, -1);
+    believer.assign(n+1, 0);
     people.assign(n+1, vector<int>());
 
     for(int i = 1; i <= n; i++) { // 주변인 입력
