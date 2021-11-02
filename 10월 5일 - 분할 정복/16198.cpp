@@ -15,7 +15,7 @@ void backtracking(int energy) {
     for(int i = 1; i < w.size() - 1; i++) { // (i: 에너지 구슬)
         int save = w[i];
         energy += w[i-1] * w[i+1]; // 에너지 모으기
-        w.erase(w.begin() + i);    // 에너지 구슬 제거
+        w.erase(w.begin() + i);    // 에너지 구슬 제거 -> 번호 다시 매기기
         backtracking(energy);
 
         w.insert(w.begin() + i, save); // 원상복구

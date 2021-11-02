@@ -11,9 +11,9 @@ void findK(string num) { // K 위치 찾기
 
 string maxNumber(string num) { // 최댓값 : 마지막이 k이면 끊어주기
     string answer = "";
+
     if(idx.empty()) { // K가 하나도 없는 경우 -> 모두 1
-        for(int i = 0; i < num.length(); i++)
-            answer += '1';
+        for(int i = 0; i < num.length(); i++) answer += '1';
     }
     else { // K가 하나라도 있는 경우
         int m = 0, k;
@@ -30,12 +30,13 @@ string maxNumber(string num) { // 최댓값 : 마지막이 k이면 끊어주기
 
 string minNumber(string num) { // 최솟값 : k마다 끊어주기
     string answer = "";
+
     if(idx.empty()) { // K가 하나도 없는 경우 -> 첫자리만 1
         answer += '1';
         for(int i = 0; i < num.length()-1; i++) answer += '0';
     }
     else { // K가 하나라도 있는 경우
-        int m = 0, k; // m과 k 인덱스
+        int m = 0, k;
         while(!idx.empty()) {
             k = idx.front(); idx.pop();
             if(k-m) answer += '1';
