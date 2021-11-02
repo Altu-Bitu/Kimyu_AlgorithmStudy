@@ -1,30 +1,14 @@
 #include <iostream>
 
 using namespace std;
-<<<<<<< HEAD
 int bit_mask = 0;
 
-void add(int x) { bit_mask |= (1 << x); }
-void remove(int x) { bit_mask &= (1 << x); }
-int check(int x) { return bit_mask & (1 << x) ? 1 : 0; }
-void toggle(int x) { check(x) ? remove(x) : add(x); }
+void add(int x) { bit_mask |= (1 << x); } // 원소 추가
+void remove(int x) { bit_mask &= ~(1 << x); } // 원소 삭제
+int check(int x) { return bit_mask & (1 << x) ? 1 : 0; } // 원소 포함 여부 확인
+void toggle(int x) { check(x) ? remove(x) : add(x); } // 원소 토글
 void empty() { bit_mask = 0; }
 void all() { bit_mask = (1 << 21) -1; }
-=======
-bool num[21] = {false, };
-
-void add(int x) { num[x] = true; }
-void remove(int x) { num[x] = false; }
-int check(int x) { return num[x] ? 1 : 0; }
-void toggle(int x) { check(x) ? remove(x) : add(x); }
-
-void empty() {
-    for(int i = 1; i <= 20; i++) num[i] = false;
-}
-void all() {
-    for(int i = 1; i <= 20; i++) num[i] = true;
-}
->>>>>>> main
 
 void add_remove_check_toggle(char ch, int x) {
     switch(ch) {

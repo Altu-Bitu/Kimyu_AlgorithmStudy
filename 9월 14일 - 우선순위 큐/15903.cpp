@@ -4,11 +4,7 @@
 using namespace std;
 priority_queue<long long, vector<long long>, greater<>> pq;
 
-<<<<<<< HEAD
 void combinateCard(int m) {
-=======
-long long card_game(int m) { // 카드 합체
->>>>>>> main
     long long card1, card2, sum;
     while(m--) {
         card1 = pq.top(); pq.pop(); // x번 카드
@@ -16,14 +12,10 @@ long long card_game(int m) { // 카드 합체
         sum = card1 + card2;
         pq.push(sum); pq.push(sum); // 두 장에 덮어쓰기
     }
-<<<<<<< HEAD
 }
 
 long long cardScore() {
     long long sum = 0;
-=======
-    sum = 0;
->>>>>>> main
     while(!pq.empty()) {
         sum += pq.top();
         pq.pop();
@@ -31,14 +23,11 @@ long long cardScore() {
     return sum; // 가장 작은 점수 반환
 }
 
-<<<<<<< HEAD
 long long cardGame(int m) { // 카드 합체
     combinateCard(m);
     return cardScore();
 }
 
-=======
->>>>>>> main
 int main() {
     int n, m, num;
     cin >> n >> m;
@@ -47,10 +36,6 @@ int main() {
         cin >> num;
         pq.push(num);
     }
-<<<<<<< HEAD
     cout << cardGame(m);
-=======
-    cout << card_game(m);
->>>>>>> main
     return 0;
 }
