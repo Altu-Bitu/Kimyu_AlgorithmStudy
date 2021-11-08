@@ -6,7 +6,7 @@ using namespace std;
 typedef pair<int, int> ci;
 
 int n;
-const int INF = 1000 * 200000 + 1;
+const int INF = 1e8 * 2 + 1;
 vector<vector<ci>> graph;
 
 int shortestPath (int start, int end) { // start부터 end까지 최단 경로

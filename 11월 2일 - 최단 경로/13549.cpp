@@ -3,7 +3,7 @@
 
 using namespace std;
 
-const int MAX_TIME = 100000;
+const int MAX_TIME = 1e5;
 bool visited[MAX_TIME+1];
 
 int bfs(int n, int k) {
@@ -19,7 +19,13 @@ int bfs(int n, int k) {
 
         if(x == k) return x_time; // 소요 시간 반환
 
-        // 1. 걷기
+        // 1. 순간이동
+        int teleport = x * 2;
+        if(teleport <= MAX_TIME && !visited[teleport]) {
+            pq.push({x_time, teleport});
+            visited[teleport] = true;
+        }
+        // 2. 걷기
         int walk1 = x - 1, walk2 = x + 1;
         if(walk1 >= 0 && !visited[walk1]) { // 왼쪽으로 한 칸
             pq.push({x_time + 1, walk1});
@@ -28,12 +34,6 @@ int bfs(int n, int k) {
         if(walk2 <= MAX_TIME && !visited[walk2]) { // 오른쪽으로 한 칸
             pq.push({x_time + 1, walk2});
             visited[walk2] = true;
-        }
-        // 2. 순간이동
-        int teleport = x * 2;
-        if(teleport <= MAX_TIME && !visited[teleport]) {
-            pq.push({x_time, teleport});
-            visited[teleport] = true;
         }
     }
 }
